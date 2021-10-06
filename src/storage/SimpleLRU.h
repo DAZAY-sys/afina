@@ -28,7 +28,6 @@ public:
             _lru_head = std::move(tmp->next);
             tmp.reset();
         }
-//        delete _lru_tail; -mistake in trying to delete nullptr
         _lru_head.reset();
     }
 
@@ -69,6 +68,10 @@ private:
     // List owns all nodes
     std::unique_ptr<lru_node> _lru_head;
     lru_node* _lru_tail;
+    bool DeleteNodeForSpace(const std::string &key, const std::string &value);
+    bool MoveNode(lru_node &lru_node);
+    bool PutNode(const std::string &key, const std::string &value, size_t _put_size);
+
 
     // Index of nodes from list above, allows fast random access to elements by lru_node#key
     std::map<std::reference_wrapper<const std::string>, std::reference_wrapper<lru_node>, std::less<std::string>> _lru_index;
