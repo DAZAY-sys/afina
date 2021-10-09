@@ -68,9 +68,10 @@ private:
     // List owns all nodes
     std::unique_ptr<lru_node> _lru_head;
     lru_node* _lru_tail;
-    bool DeleteNodeForSpace(const std::string &key, const std::string &value);
+    bool DeleteNodeForSpace(const std::string &value, std::string key);
     bool MoveNode(lru_node &lru_node);
     bool PutNode(const std::string &key, const std::string &value, size_t _put_size);
+    bool ChangeValue(const std::string &key, const std::string &value);
 
 
     // Index of nodes from list above, allows fast random access to elements by lru_node#key
